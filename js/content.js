@@ -21,19 +21,20 @@ $(document).ready(function(){
 function repName(name){
   var content = document.body.innerHTML; 
   var regExp = new RegExp(name.oldname,'g');
+  console.log(content.indexOf(name.oldname))
+  if(content.indexOf(name.oldname)<0){
+    // console.log(1111)
+    return;
+  }
   content = content.replace(regExp, name.newname);
-  // console.log(content)
+  // console.log(222)
   document.body.innerHTML = content;
 }
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-    // console.log('msg',message)
-    // if(message.indexOf('remove')>0){
-    //   var i = message.splice(0,5)*1
-    //   console.log(i)
-    //   names.splice(i,1)
-    // }
     if(message == 'clear'){
+      names = []
       localStorage.removeItem('names');
+      window.location.reload()
     }else if(message == 'new' || message=='loaded'){
       getNames()
     }else{
@@ -43,7 +44,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
       // console.log('add',names)
       localStorage.setItem('names',JSON.stringify(names));
     }
-       sendResponse({farewell: "ok"});   //注意，注意，注意就是这个sendResponse函数一定要调用，否则就会报错
+    sendResponse({farewell: "ok"});   //注意，注意，注意就是这个sendResponse函数一定要调用，否则就会报错
     
 });
 
