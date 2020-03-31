@@ -11,7 +11,7 @@ $(document).ready(function(){
         $('#names')[0].after(p[0])
       }
        sendResponse({farewell: "ok"});   //注意，注意，注意就是这个sendResponse函数一定要调用，否则就会报错
-  });
+  })
   $("form").submit(function(){
       event.preventDefault() 
     // console.log('submit')
