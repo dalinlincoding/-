@@ -5,7 +5,7 @@ function getNames(){
   if(ls&&ls!='undefined'){
     chrome.extension.sendMessage(JSON.parse(ls),function (response) {
       console.log( "fromcontentscript");
-    })  
+    })
   }
 }
 $(document).ready(function(){
