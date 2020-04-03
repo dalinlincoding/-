@@ -46,5 +46,4 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
     }
     sendResponse({farewell: "ok"});   //注意，注意，注意就是这个sendResponse函数一定要调用，否则就会报错
     
-});
-
+})
