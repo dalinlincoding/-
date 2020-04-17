@@ -4,7 +4,7 @@ function getNames(){
   // console.log(222,ls)
   if(ls&&ls!='undefined'){
     chrome.extension.sendMessage(JSON.parse(ls),function (response) {
-      // console.log( "fromcontentscript");
+      console.log( "fromcontentscript");
     })
   }
 }
@@ -13,6 +13,7 @@ $(document).ready(function(){
   // console.log(111,ls)
   if(ls&&ls!='undefined'){
     var list = JSON.parse(ls)
+    names = JSON.parse(ls)
     for(var l=0;l<list.length;l++){
       repName(list[l])
     }
@@ -31,14 +32,15 @@ function repName(name){
   document.body.innerHTML = content;
 }
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-      // console.log(message)
+      console.log(message)
     if(message == 'clear'){
       names = []
       localStorage.removeItem('names');
       window.location.reload()
     }else if(message == 'new' || message=='loaded'){
       getNames()
-    }else if(typeof message =="string" && message.indexOf('dele')>-1){
+    }else if(typeof message == "string" && message.indexOf('dele')>-1){
+      console.log('delete')
       let i = message.substring(4,5)
       names.splice(i,1)
       localStorage.setItem('names',JSON.stringify(names));
