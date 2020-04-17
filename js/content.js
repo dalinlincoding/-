@@ -32,7 +32,7 @@ function repName(name){
   document.body.innerHTML = content;
 }
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-      console.log(message)
+      // console.log(message)
     if(message == 'clear'){
       names = []
       localStorage.removeItem('names');
