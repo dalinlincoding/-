@@ -4,7 +4,7 @@ function getNames(){
   // console.log(222,ls)
   if(ls&&ls!='undefined'){
     chrome.extension.sendMessage(JSON.parse(ls),function (response) {
-      console.log( "fromcontentscript");
+      // console.log( "fromcontentscript");
     })
   }
 }
@@ -31,12 +31,17 @@ function repName(name){
   document.body.innerHTML = content;
 }
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
+      // console.log(message)
     if(message == 'clear'){
       names = []
       localStorage.removeItem('names');
       window.location.reload()
     }else if(message == 'new' || message=='loaded'){
       getNames()
+    }else if(typeof message =="string" && message.indexOf('dele')>-1){
+      let i = message.substring(4,5)
+      names.splice(i,1)
+      localStorage.setItem('names',JSON.stringify(names));
     }else{
       var name = message
       repName(name)

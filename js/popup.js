@@ -6,19 +6,33 @@ $(document).ready(function(){
       names = message
       for(i =0;i<names.length;i++){
         var item = names[i]
-        var p = $("<div id='name"+i + "' >" + '&nbsp;&nbsp;'+item.oldname+'&nbsp;:&nbsp;'+item.newname + "</div>")
+        var p = $("<div id='name"+i + "' >" + '&nbsp;&nbsp;'+item.oldname+'&nbsp;:&nbsp;'+item.newname + "<img class='dele' id='dele"+i + "' src='./images/menu_dele.png' ></div>")
         var name = {'oldname':item.oldname,'newname':item.newname}
         $('#names')[0].after(p[0])
+        let j = i
+        $('#dele'+j).on('click',function(){
+          // console.log('dele'+j,999)
+            sendMessageToContentScript('dele'+j, (response) => {
+              window.location.reload()
+            });
+        });
       }
        sendResponse({farewell: "ok"});   //注意，注意，注意就是这个sendResponse函数一定要调用，否则就会报错
   })
   $("form").submit(function(){
       event.preventDefault() 
     // console.log('submit')
-      var p = $("<div id='name"+i + "' >" + '&nbsp;&nbsp;'+$('#oldname')[0].value+'&nbsp;:&nbsp;'+$('#newname')[0].value + "</div>")
+      var p = $("<div id='name"+i + "' >" + '&nbsp;&nbsp;'+$('#oldname')[0].value+'&nbsp;:&nbsp;'+$('#newname')[0].value + "<img class='dele' id='dele"+i + "' src='./images/menu_dele.png' ></div>")
       var name = {'oldname':$('#oldname')[0].value,'newname':$('#newname')[0].value}
       $('#names')[0].after(p[0])
       // console.log(p)
+      let j = i
+      $('#dele'+j).on('click',function(){
+        console.log('dele'+j,999)
+          sendMessageToContentScript('dele'+j, (response) => {
+            window.location.reload()
+          });
+      });
       i++
       sendMessageToContentScript(name, (response) => {
         names.push(name)
